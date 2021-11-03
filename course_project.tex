@@ -4,9 +4,9 @@
 \usepackage[T2A]{fontenc}
 \usepackage[russian]{babel}
 
-\usetheme{Copenhagen}
+\usetheme{Berkeley}
 
-\title[стохастическая задача формирования теста]{Стохастическая постановка задачи формирования теста заданного уровня сложности с минимизацией квантили времени выполнения}
+\title[Стохасти- ческая задача формирования теста]{Стохастическая постановка задачи формирования теста заданного уровня сложности с минимизацией квантили времени выполнения}
 \author[Королев Егор \and Туманов Георгий]{Е.В.Королев \and Г.А.Туманов}
 \institute[НИУ МАИ]{Московский авиационный институт (НИУ)}
 
@@ -15,7 +15,80 @@
         \maketitle
     \end{frame}
 
-    \begin{frame}{название слайда}
+    \begin{frame}{План презентации}
+        \tableofcontents
+    \end{frame}
+
+    \section{Введение}
+    \begin{frame}{Введение}
+        \begin{block}{LMS}
+            С переходом на дистанционное образование активно развиваются системы управления обучением (LMS)\\
+        \end{block}
+    
+        \begin{block}{Способ повышения качества дистанциооного образования}
+            Применение анализа данных в LMS может повысить качество дистанционного образования\\
+        \end{block}
+    
+        \begin{block}{За счет чего повышактся качество?}
+            Сложность заданий оценивается экспертами, либо программно. Происходит адаптация контента под оцениваемый уровень знаний пользователя\\
+        \end{block}
+    \end{frame}
+
+    \section{Постановка задачи}
+    \begin{frame}{Постановка задачи}
+        \begin{block}{Логнормальная модель Ван дер Линдена}
+            Пусть $Z=(z_1,\cdots,z_I)$ -- вектор заданий\\
+            Ван дер Линден предположил, что логарифм времени $T_j^i$ (время ответа $j$-го пользователя на $i$-ю задачу) состоит из 3-х компонент:
+            \begin{itemize}
+                \item $\mu$ -- общая составляющая для всех пользователей и задач;
+                \item $\beta_i$ -- индивидуальная сложность $i$-й задачи;
+                \item $\tau_j$ -- особенности $j$-го пользователя, решающего задание.
+            \end{itemize}
+            Модель имеет вид:
+            \begin{equation}
+            \ln T_j^i = \mu + \beta_i + \tau_j + \varepsilon_{ij},
+            \end{equation}
+            где $\varepsilon_{ij} \thicksim \mathcal{N}(0,\sigma^2)$ -- независимые СВ
+        \end{block}
+    \end{frame}
+
+    \begin{frame}{Постановка задачи}
+        \begin{block}{Оценки параметров модели}
+            Из ММП можно получить оценки модели:
+            \begin{gather}
+                \hat{\mu} = \dfrac{1}{I \cdot J} \sum\limits_{j=1}^J \sum\limits_{i=1}^I \ln t_j^i, ~~~  \hat{\beta_i} = \dfrac{1}{J} \sum\limits_{j=1}^J \ln t_j^i - \hat{\mu}, ~~~  \hat{\tau_j} = \dfrac{1}{I \cdot J} \sum\limits_{i=1}^I \ln t_j^i - \hat{\mu},\\
+                \hat{\sigma^2} = \dfrac{1}{I \cdot J} \sum\limits_{j=1}^J \sum\limits_{i=1}^I \left( \ln t_j^i - \hat{\mu} - \hat{\beta_i} - \hat{\tau_j} \right)^2
+            \end{gather}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}{Постановка задачи}
+        \begin{block}{Плотность вероятности логнормального распределения}
+            Таким образом, из модели (1) и с учетом оценок (2), (3) в качестве модели времени ответа пользователя на задание можно выбрать модель логнормального распределения с плотностью вероятности:
+            \begin{equation}
+                f(x,\tau_j,\beta_i,\sigma) = \dfrac{1}{x\sigma \sqrt{2\pi}}\exp \left\{ -\dfrac{1}{2} \left[ \dfrac{\ln x - (\hat{\mu} + \hat{\beta_i} + \hat{\tau_j})}{\hat{\sigma}} \right]^2 \right\}
+            \end{equation}
+        \end{block}
+    \end{frame}
+
+
+    \section{Численный эксперимент}
+    \begin{frame}{Численный эксперимент}
         текст\\
+    \end{frame}
+
+    \section{Заключение}
+    \begin{frame}{Заключение}
+        текст\\
+    \end{frame}
+    
+    \begin{frame}{Список литературы}
+        текст\\
+    \end{frame}
+
+    \begin{frame}
+        \centering
+        \huge
+        Спасибо за внимание!\\
     \end{frame}
 \end{document}
