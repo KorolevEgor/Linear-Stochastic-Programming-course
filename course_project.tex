@@ -7,8 +7,10 @@
 \usetheme{Berkeley}
 
 \title[Стохасти- ческая задача формирования теста]{Стохастическая постановка задачи формирования теста заданного уровня сложности с минимизацией квантили времени выполнения}
-\author[Королев Егор \and Туманов Георгий]{Е.В.Королев \and Г.А.Туманов}
+\author[Королев Егор \and Туманов Георгий]{Королев Е.В. \and Туманов Г.А.}
 \institute[НИУ МАИ]{Московский авиационный институт (НИУ)}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 \begin{document}
     \begin{frame}
@@ -18,6 +20,7 @@
     \begin{frame}{План презентации}
         \tableofcontents
     \end{frame}
+
 
     \section{Введение}
     \begin{frame}{Введение}
@@ -34,9 +37,10 @@
         \end{block}
     \end{frame}
 
+
     \section{Постановка задачи}
-    \begin{frame}{Постановка задачи}
-        \begin{block}{Логнормальная модель Ван дер Линдена}
+    \begin{frame}{Логнормальная модель Ван дер Линдена}
+        %\begin{block}{Логнормальная модель Ван дер Линдена}
             Пусть $Z=(z_1,\cdots,z_I)$ -- вектор заданий\\
             Ван дер Линден предположил, что логарифм времени $T_j^i$ (время ответа $j$-го пользователя на $i$-ю задачу) состоит из 3-х компонент:
             \begin{itemize}
@@ -49,35 +53,97 @@
             \ln T_j^i = \mu + \beta_i + \tau_j + \varepsilon_{ij},
             \end{equation}
             где $\varepsilon_{ij} \thicksim \mathcal{N}(0,\sigma^2)$ -- независимые СВ
-        \end{block}
+        %\end{block}
     \end{frame}
 
-    \begin{frame}{Постановка задачи}
-        \begin{block}{Оценки параметров модели}
+
+    \begin{frame}{Оценки параметров модели}
+        %\begin{block}{Оценки параметров модели}
             Из ММП можно получить оценки модели:
             \begin{gather}
                 \hat{\mu} = \dfrac{1}{I \cdot J} \sum\limits_{j=1}^J \sum\limits_{i=1}^I \ln t_j^i, ~~~  \hat{\beta_i} = \dfrac{1}{J} \sum\limits_{j=1}^J \ln t_j^i - \hat{\mu}, ~~~  \hat{\tau_j} = \dfrac{1}{I \cdot J} \sum\limits_{i=1}^I \ln t_j^i - \hat{\mu},\\
                 \hat{\sigma^2} = \dfrac{1}{I \cdot J} \sum\limits_{j=1}^J \sum\limits_{i=1}^I \left( \ln t_j^i - \hat{\mu} - \hat{\beta_i} - \hat{\tau_j} \right)^2
             \end{gather}
+        %\end{block}
+    \end{frame}
+
+
+    \begin{frame}{Плотность вероятности логнормального распределения}
+        %\begin{block}{Плотность вероятности логнормального распределения}
+            Таким образом, из модели (1) и с учетом оценок (2), (3) в качестве модели времени ответа пользователя на задание можно выбрать модель логнормального распределения с плотностью вероятности:
+            \begin{equation}
+                f(x,\tau_j,\beta_i,\sigma) = \dfrac{1}{x\sigma \sqrt{2\pi}}\exp \left\{ -\dfrac{1}{2} \left[ \dfrac{\ln x - (\hat{\mu} + \hat{\beta_i} + \hat{\tau_j})}{\hat{\sigma}} \right]^2 \right\}  
+            \end{equation}
+        %\end{block}
+    \end{frame}
+
+
+    \begin{frame}{Обозначения}
+        \begin{block}{Матрица принадлежности}
+            Разобъем множество заданий на $M$ различных типов, $I_m$ -- число заданий $m$-го типа.\\
+            Пусть $A = \norm{ a_i^m }_{i=\overline{1,I}}^{m=\overline{1,M}},~~a_i^m =
+                \begin{cases}
+                    1, &z_i \in Z_m,\\
+                    0, &z_i \notin Z_m.
+                \end{cases}$
+        \end{block}
+    
+        \begin{block}{Тестовый набор}
+            Определим вектор $u\in\mathbb{R}^I$.\\
+            Пусть $u_i =
+                \begin{cases}
+                    1, &\text{если задача $i$ попала в тестовый набор,}\\
+                    0, &\text{иначе.}
+                \end{cases}$\\
+            Тестовым набором считаются $k$ заданий, для которых $u_i=1$.
         \end{block}
     \end{frame}
 
-    \begin{frame}{Постановка задачи}
-        \begin{block}{Плотность вероятности логнормального распределения}
-            Таким образом, из модели (1) и с учетом оценок (2), (3) в качестве модели времени ответа пользователя на задание можно выбрать модель логнормального распределения с плотностью вероятности:
+
+    \begin{frame}{Обозначения}
+        \begin{block}{Cложность заданий}
+            Введем $w\in\mathbb{R}^I$, $i$-я координата -- сложность $i$-го задания.\\
+            Пусть изначально задаётся суммарная сложность теста, обозначаемая через $c$, которая определяется на основе экспертной оценки.
+        \end{block}
+    
+        \begin{block}{Некоторые обозначения}
+            Пусть в тестировании участвуют $N$ пользователей.\\
+            Пусть $T_n^i$ -- случайное время, потребовавшееся пользователю $n$ на решение задачи $i$.\\
+            И пусть $ T = \norm{ T_n^i }_{n=\overline{1,N}}^{i=\overline{1,I}}$.
+        \end{block}
+    \end{frame}
+    
+    
+    \begin{frame}{Задача квантильной оптимизации}
+        \begin{block}{Функция квантили}
+            Пусть $\varphi$ -- общее время выполнения теста, которое неизвестно.\\
+            Тогда для того, чтобы за некоторое оптимальное время все тестируемые могли выполнить выданный вариант теста с заданной вероятностью $\alpha$, рассмотрим функцию квантили:
+            функцию квантили:
             \begin{equation}
-                f(x,\tau_j,\beta_i,\sigma) = \dfrac{1}{x\sigma \sqrt{2\pi}}\exp \left\{ -\dfrac{1}{2} \left[ \dfrac{\ln x - (\hat{\mu} + \hat{\beta_i} + \hat{\tau_j})}{\hat{\sigma}} \right]^2 \right\}
+                \Phi_\alpha(u)\triangleq\min\left\{\varphi:P\left\{\max_{n=\overline{1,N}}T_n u\leq\varphi\right\}\geq\alpha\right\}
             \end{equation}
         \end{block}
     \end{frame}
+    
+    
+    \begin{frame}{Задача квантильной оптимизации}
+        \begin{block}{Постановка задачи}
+            Требуется составить множество индивидуальных тестовых наборов из $k$ заданий, принадлежащих различным типам, учитывая, что $k \geq M$.\\
+            При этом, возможно отклонение от $c$ на какое-либо малое число $\varepsilon$ в большую, либо меньшую сторону.
+        \end{block}
+    \end{frame}
+
 
     \begin{frame}{Задача квантильной оптимизации}
-        $$u_\alpha = Arg\min_{u\in\{0, 1\}^I}\left(\frac{\gamma\left|c-w^T u\right|}{\varepsilon} + \frac{(1-\gamma)\Phi_\alpha(u)}{2700}\right)$$
-        $$\varphi_\alpha = \min_{u\in\{0, 1\}^I}\left(\frac{\gamma\left|c-w^T u\right|}{\varepsilon} + \frac{(1-\gamma)\Phi_\alpha(u)}{2700}\right)$$
-        $$c-w^T u\leq\varepsilon$$
-        $$w^T u-c\leq\varepsilon$$
-        $$A^T u\geq e_M$$
-        $$e_I^T u=k$$
+        \begin{equation}
+        \begin{gathered}
+            u_\alpha = Arg\min_{u\in\{0, 1\}^I}\left(\frac{\gamma\left|c-w^T u\right|}{\varepsilon} + \frac{(1-\gamma)\Phi_\alpha(u)}{2700}\right)\\
+            \varphi_\alpha = \min_{u\in\{0, 1\}^I}\left(\frac{\gamma\left|c-w^T u\right|}{\varepsilon} + \frac{(1-\gamma)\Phi_\alpha(u)}{2700}\right)\\
+            |c-w^T u| \leq \varepsilon\\
+            A^T u \geq e_M\\
+            e_I^T u=k
+        \end{gathered}
+        \end{equation}
     \end{frame}
     
     \begin{frame}{Дискретный аналог}
@@ -100,6 +166,7 @@
         
         $p_n^i(\lambda)=\int_{t_{\lambda-1}}^{t_\lambda}f(t, \tau_n, \beta_i, \sigma)dt$
     \end{frame}
+
     
     \begin{frame}{Функция квантили}
         Вместо матрицы $T$ будем использовать мктрицу $\Theta=||\Theta_n^i||$.
@@ -108,6 +175,7 @@
         
         $$\Phi_\alpha(u)\triangleq\min\left\{\varphi:P\left\{\max_{n=\overline{1,N}}\Theta_n u\leq\varphi\right\}\geq\alpha\right\}$$
     \end{frame}
+    
     
     \begin{frame}{Сведение к детерминированной задаче}
         Введём следующие обозначения:
@@ -122,6 +190,7 @@
         
         $\delta=(\delta_1,...,\delta_D)\in\{0,1\}^D$ -- вектор булевых переменных, определяющий доверительное множество
     \end{frame}
+    
     
     \begin{frame}{Детерминированная задача}
         $$u^* = Arg\min_{u\in\{0, 1\}^I, \delta\in\{0, 1\}^D, \varphi\geq 0}\left(\frac{\gamma\left|c-w^T u\right|}{\varepsilon} + \frac{(1-\gamma)\varphi}{2700}\right)$$
@@ -139,14 +208,17 @@
         текст\\
     \end{frame}
 
+
     \section{Заключение}
     \begin{frame}{Заключение}
         текст\\
     \end{frame}
+
     
     \begin{frame}{Список литературы}
         текст\\
     \end{frame}
+
 
     \begin{frame}
         \centering
