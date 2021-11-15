@@ -24,6 +24,10 @@
         \tableofcontents
     \end{frame}
 
+    \begin{frame}{Ссылка на работу}
+        Ссылка на GitHub-репозиторий с презентацией и программой:  \href{https://github.com/KorolevEgor/Linear-Stochastic-Programming-course}{перейти}
+    \end{frame}
+
     \section{Введение}
     \begin{frame}{Введение}
         \begin{block}{LMS}
@@ -62,7 +66,7 @@
         %\begin{block}{Оценки параметров модели}
             Из ММП можно получить оценки модели:
             \begin{gather}
-                \hat{\mu} = \dfrac{1}{I \cdot J} \sum\limits_{j=1}^J \sum\limits_{i=1}^I \ln t_j^i, ~~~  \hat{\beta_i} = \dfrac{1}{J} \sum\limits_{j=1}^J \ln t_j^i - \hat{\mu}, ~~~  \hat{\tau_j} = \dfrac{1}{I \cdot J} \sum\limits_{i=1}^I \ln t_j^i - \hat{\mu},\\
+                \hat{\mu} = \dfrac{1}{I \cdot J} \sum\limits_{j=1}^J \sum\limits_{i=1}^I \ln t_j^i, ~~~  \hat{\beta_i} = \dfrac{1}{J} \sum\limits_{j=1}^J \ln t_j^i - \hat{\mu}, ~~~  \hat{\tau_j} = \dfrac{1}{I} \sum\limits_{i=1}^I \ln t_j^i - \hat{\mu},\\
                 \hat{\sigma^2} = \dfrac{1}{I \cdot J} \sum\limits_{j=1}^J \sum\limits_{i=1}^I \left( \ln t_j^i - \hat{\mu} - \hat{\beta_i} - \hat{\tau_j} \right)^2
             \end{gather}
         %\end{block}
@@ -137,8 +141,7 @@
     \begin{frame}{Задача квантильной оптимизации}
         $$u_\alpha = Arg\min_{u\in\{0, 1\}^I}\left(\frac{\gamma\left|c-w^T u\right|}{\varepsilon} + \frac{(1-\gamma)\Phi_\alpha(u)}{2700}\right)$$
         $$\varphi_\alpha = \min_{u\in\{0, 1\}^I}\left(\frac{\gamma\left|c-w^T u\right|}{\varepsilon} + \frac{(1-\gamma)\Phi_\alpha(u)}{2700}\right)$$
-        $$c-w^T u\leq\varepsilon$$
-        $$w^T u-c\leq\varepsilon$$
+        $$|c-w^T u|\leq\varepsilon$$
         $$A^T u\geq e_M$$
         $$e_I^T u=k$$
     \end{frame}
@@ -157,7 +160,7 @@
         где:\newline
         $0 = t_0 < t_1 < t_2 < ... < t_{L_{ni}-1} < t_{L_{ni}} = +\infty$ -- разбиение временного интервала\newline
         
-        $\theta_n^i(\lambda)$ -- середины интервалов $[t_{\lambda-1}, t_\lambda], l=2,...,L_{ni}-1$\newline
+        $\theta_n^i(\lambda)$ -- середины интервалов $[t_{\lambda-1}, t_\lambda], \lambda=2,...,L_{ni}-1$\newline
         
         $\theta_n^i(1)$ и $\theta_n^i(L_{ni})$ -- квантили $T_n^i$ уровней 0.01 и 0.99 соответственно\newline
         
@@ -189,8 +192,7 @@
     \begin{frame}{Детерминированная задача}
         $$u^* = Arg\min_{u\in\{0, 1\}^I, \delta\in\{0, 1\}^D, \varphi\geq 0}\left(\frac{\gamma\left|c-w^T u\right|}{\varepsilon} + \frac{(1-\gamma)\varphi}{2700}\right)$$
         $$\theta_d u - \overline{\varphi}\leq(\theta_d e_I)\delta_d$$
-        $$c-w^T u\leq\varepsilon$$
-        $$w^T u-c\leq\varepsilon$$
+        $$|c-w^T u|\leq\varepsilon$$
         $$A^T u\geq e_M$$
         $$e_I^T u=k$$
         $$p\delta^T \leq 1-\alpha$$
@@ -251,7 +253,7 @@ $z_{10}^1$ & 6.39 & $z_{10}^2$ & 6.27 & $z_{10}^3$ & 3.88 \\ \hline
     \begin{frame}{Результаты эксперимента}
         Решим задачу на уровне доверия $\alpha=0.95$ при $\gamma=0$ и $\gamma=0.5$.\newline
         
-        Обозначим $n_{det}$ -- количество решений, удовлетворяющих детерминированным ограничениям, $u^*$ -- оптимальный набор заданий, а $\psi^*$ -- оптимальное время в академических часах.
+        Обозначим $n_{det}$ -- количество решений, удовлетворяющих детерминированным ограничениям, $u^*$ -- оптимальный набор заданий, а $\psi^*$ -- оптимальное решение.
        	
        	\begin{table}[]
 \begin{tabular}{|c|c|c|c|c|c|}
@@ -331,8 +333,8 @@ $\varepsilon$ & $t$(сек) \\ \hline
     
     \begin{frame}{Список литературы}
         \begin{itemize}
-  			\item А. В. Наумов, Г. А. Мхитарян, Е. Е. Черыгова "Стохастическая постановка задачи формирования теста заданного уровня сложности c минимизацией квантили времени выполнения"
-  			\item А. В. Наумов "Методы и алгоритмы решения задач стохастического линейного программирования с квантильным критерием"
+  			\item А. В. Наумов, Г. А. Мхитарян, Е. Е. Черыгова "Стохастическая постановка задачи формирования теста заданного уровня сложности c минимизацией квантили времени выполнения";
+  			\item А. В. Наумов "Методы и алгоритмы решения задач стохастического линейного программирования с квантильным критерием".
 		\end{itemize}
     \end{frame}
 
